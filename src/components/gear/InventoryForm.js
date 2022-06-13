@@ -5,7 +5,7 @@ export const InventoryForm = () => {
     const navigate = useNavigate()
     const localGearUser = localStorage.getItem("gear_user")
     const gearUserObject = JSON.parse(localGearUser)
-    const [userInventory, setUserInventories] = useState()
+    const [userInventories, setUserInventories] = useState([])
     const [newInventory, updateInventories] = useState({
         gearTypeId: 0,
         name: "",
@@ -16,14 +16,40 @@ export const InventoryForm = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/inventorys?_expand=gearType&_expand=user`)
-            .then(res => res.json())
-            .then((userInventory) => {
-                setUserInventories(userInventory)
-            })
+            fetch(`http://localhost:8088/gearTypes?_embed=inventorys`)
+                .then(res => res.json())
+                .then((userInventories) => {
+                    setUserInventories(userInventories)
+                })
         },
         []
     )
+
+    const saveNewInventoryItem = (event) => {
+        event.preventDefault()
+
+        const itemToAPI = {
+            userId: gearUserObject.id,
+            gearType: newInventory.gearTypeId,
+            name: newInventory.name,
+            manufacturer: newInventory.manufacturer,
+            description: newInventory.description,
+            photo: newInventory.photo
+        }
+
+        return fetch(`http://localhost:8088/inventorys`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(itemToAPI)
+        })
+        .then(res => res.json())
+        .then(() => {
+            navigate("/inventory")
+        })
+    }
+
     return (
         <form className="inventoryForm">
             <h2>New Inventory Form</h2>
@@ -48,16 +74,16 @@ export const InventoryForm = () => {
             </fieldset>
             <fieldset>
                 <div className="inventoryFormGroup">
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="manufacturer">Manufacturer:</label>
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Employee email"
-                        value={newInventory.email}
+                        placeholder="Manufacturer name"
+                        value={newInventory.manufacturer}
                         onChange={
                             (evt) => {
                                 const copy = { ...newInventory }
-                                copy.email = evt.target.value
+                                copy.manufacturer = evt.target.value
                                 updateInventories(copy)
                             }
                         }
@@ -67,16 +93,16 @@ export const InventoryForm = () => {
             <fieldset>
                 <div className="inventoryFormGroup">
                     <label htmlFor="gearType">Type of gear:  </label>
-                    <select value={newInventory?.location?.id} onChange={
+                    <select value={newInventory.gearTypeId} onChange={
                         (evt) => {
                             const copy = { ...newInventory }
                             copy.location = parseInt(evt.target.value)
                             updateInventories(copy)
                         }
-                    }><option>Choose Location</option>
-                        {userInventory.map(inventory => (
-                            <option value={inventory?.gearType?.gearType}>
-                                {inventory?.location?.name}
+                    }><option>Choose Gear Type</option>
+                        {userInventories.map(gearType => (
+                            <option value={gearType.id}>
+                                {gearType?.gearType}
                             </option>
                         ))}
                     </select>
@@ -84,33 +110,33 @@ export const InventoryForm = () => {
             </fieldset>
             <fieldset>
                 <div className="inventoryFormGroup">
-                    <label htmlFor="startDate">Start date:</label>
+                    <label htmlFor="description">Description:</label>
                     <input
-                        type="date"
+                        type="text"
                         className="form-control"
-                        value={newInventory.startDate}
+                        placeholder="Describe this piece of gear"
+                        value={newInventory.description}
                         onChange={
                             (evt) => {
                                 const copy = { ...newInventory }
-                                copy.startDate = evt.target.value
+                                copy.description = evt.target.value
                                 updateInventories(copy)
                             }
                         }
                     />
                 </div>
-            </fieldset>
-            <fieldset>
+            </fieldset>            <fieldset>
                 <div className="inventoryFormGroup">
-                    <label htmlFor="payRate">Hourly rate:</label>
+                    <label htmlFor="photo">Photo:</label>
                     <input
-                        type="number"
+                        type="text"
                         className="form-control"
-                        placeholder="Enter pay rate"
-                        value={newInventory.payRate}
+                        placeholder="Add photo"
+                        value={newInventory.photo}
                         onChange={
                             (evt) => {
                                 const copy = { ...newInventory }
-                                copy.payRate = parseInt(evt.target.value)
+                                copy.photo = evt.target.value
                                 updateInventories(copy)
                             }
                         }
@@ -118,9 +144,9 @@ export const InventoryForm = () => {
                 </div>
             </fieldset>
             <button
-                onClick={(clickEvent) => (clickEvent)}
+                onClick={(clickEvent) => saveNewInventoryItem(clickEvent)}
                 className="myButton">
-                Add New Hire
+                Add Inventory Item
             </button>
         </form>
     )
