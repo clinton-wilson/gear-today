@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import "./inventory.css"
 export const Inventory = () => {
     const [inventories, setInventories] = useState([])
     const localGearUser = localStorage.getItem("gear_user")
     const gearUserObject = JSON.parse(localGearUser)
+
     const navigate = useNavigate()
     useEffect(
         () => {
-            fetch(`http://localhost:8088/inventorys`)
+            fetch(`http://localhost:8088/inventorys?userId=${gearUserObject.id}`)
                 .then(res => res.json())
                 .then((inventoryData) => {
                     setInventories(inventoryData)
@@ -28,6 +29,7 @@ export const Inventory = () => {
                             <header className="inventory__header">Name: {inventory.manufacturer} {inventory.name}</header>
                         </section>
                     }
+
                 })
             }
         </article>

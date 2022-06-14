@@ -14,3 +14,10 @@
 .myButton {
     margin-left: auto;
 }
+
+.userInventoryItem {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    margin: 1em;
+}

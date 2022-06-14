@@ -30,7 +30,7 @@ export const InventoryForm = () => {
 
         const itemToAPI = {
             userId: gearUserObject.id,
-            gearType: newInventory.gearTypeId,
+            gearTypeId: newInventory.gearTypeId,
             name: newInventory.name,
             manufacturer: newInventory.manufacturer,
             description: newInventory.description,
@@ -96,13 +96,13 @@ export const InventoryForm = () => {
                     <select value={newInventory.gearTypeId} onChange={
                         (evt) => {
                             const copy = { ...newInventory }
-                            copy.location = parseInt(evt.target.value)
+                            copy.gearTypeId = parseInt(evt.target.value)
                             updateInventories(copy)
                         }
                     }><option>Choose Gear Type</option>
                         {userInventories.map(gearType => (
                             <option value={gearType.id}>
-                                {gearType?.gearType}
+                                {gearType.gearType}
                             </option>
                         ))}
                     </select>

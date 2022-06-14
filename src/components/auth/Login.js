@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Login = () => {
     const [email, set] = useState("cwilson@geartoday.com")
     const navigate = useNavigate()
-
+    const {userId} = useParams()
     const handleLogin = (e) => {
         e.preventDefault()
 
@@ -19,7 +19,7 @@ export const Login = () => {
                         id: user.id,
                     }))
 
-                    navigate("/inventory")
+                    navigate(`/inventory`)
                 }
                 else {
                     window.alert("Invalid login")
