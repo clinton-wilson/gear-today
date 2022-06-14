@@ -1,0 +1,16 @@
+.inventories {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem;
+
+}
+
+.inventory {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem
+}
+
+.myButton {
+    margin-left: auto;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import "./inventory.css"
 export const Inventory = () => {
     const [inventories, setInventories] = useState([])
     const localGearUser = localStorage.getItem("gear_user")
