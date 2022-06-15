@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import "./inventory.css"
 export const Inventory = () => {
     const [inventories, setInventories] = useState([])
@@ -26,7 +26,7 @@ export const Inventory = () => {
                     if (gearUserObject.id === inventory.userId) {
                         return <section className="inventory">
                             <img src={inventory.photo} alt={inventory.description}></img>
-                            <header className="inventory__header">Name: {inventory.manufacturer} {inventory.name}</header>
+                            <header className="inventory__header"><Link to={`/inventoryDetails/${inventory.id}`}>{inventory.manufacturer} {inventory.name}</Link></header>
                         </section>
                     }
 

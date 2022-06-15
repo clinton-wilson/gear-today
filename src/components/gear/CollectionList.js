@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import "./inventory.css"
 
 export const CollectionList = () => {
     const { userId, inventoryId } = useParams()
     const [userInventory, setUserInventory] = useState([])
-
+    const navigate = useNavigate()
     useEffect(
         () => {
             fetch(`http://localhost:8088/users?_embed=inventorys&id=${userId}`)
@@ -28,12 +28,12 @@ export const CollectionList = () => {
                             inventory.inventorys.map((inventory) => {
                                 return <section className="userInventoryItem">
                                     <img src={inventory.photo} alt={inventory.description}></img>
-                                    <footer><Link to={`/inventorys/${inventoryId}`}>{inventory.manufacturer} {inventory.name}</Link></footer>
+                                    <footer><Link to={`/gearDetails/${inventory.id}`}>{inventory.manufacturer} {inventory.name}</Link></footer>
                                 </section>
+
                             })
                         }
-
-
+                        <button onClick={() => { navigate("/userCollections") }} className="backButton">Back to Collections</button>
                     </section>
                 })
             }

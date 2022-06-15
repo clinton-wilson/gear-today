@@ -1,6 +1,8 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { CollectionList } from "../gear/CollectionList"
+import { GearDetails } from "../gear/GearDetails"
 import { Inventory } from "../gear/Inventory"
+import { InventoryDetails } from "../gear/InventoryDetails"
 import { InventoryForm } from "../gear/InventoryForm"
 import { UserCollections } from "../gear/UserCollections"
 import { Profile } from "../profile/Profile"
@@ -24,8 +26,9 @@ export const ApplicationViews = () => {
                 <Route path="profile/updateProfile" element={<ProfileForm />} />
                 <Route path="userCollections" element={<UserCollections />} />
                 <Route path="userCollections/:userId" element={<CollectionList />} />
-                <Route path="gearDetails/:inventoryId" element={<></>} />
-
+                <Route path="gearDetails/:inventoryId" element={<GearDetails />} />
+                <Route path="inventoryDetails/:inventoryId" element={<InventoryDetails />} />
+                
             </Route>
         </Routes>
     )
