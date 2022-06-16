@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { Requests } from "../requests/ReceivedRequests"
 
 export const GearDetails = () => {
     const { inventoryId } = useParams({ id: true })
@@ -63,7 +64,8 @@ export const GearDetails = () => {
                         <footer>Request</footer>
                         <button onClick={(clickEvent) => sendRequest(clickEvent)} >Borrow</button>
                         <button>Buy</button>
-                        <button onClick={() => { navigate(`/userCollections/${inventory.userId}`) }} className="backButton">Back to Collection</button>
+                        <button onClick={() => { navigate(`/userCollections/${inventory.userId}
+                        `) }} className="backButton">Back to Collection</button>
                     </article>
                 }
             })

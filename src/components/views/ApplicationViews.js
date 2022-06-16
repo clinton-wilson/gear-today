@@ -7,6 +7,8 @@ import { InventoryForm } from "../gear/InventoryForm"
 import { UserCollections } from "../gear/UserCollections"
 import { Profile } from "../profile/Profile"
 import { ProfileForm } from "../profile/ProfileForm"
+import { ReceivedRequests, Requests } from "../requests/ReceivedRequests"
+import { SubmittedRequests } from "../requests/SubmittedRequests"
 
 export const ApplicationViews = () => {
     return (
@@ -28,6 +30,8 @@ export const ApplicationViews = () => {
                 <Route path="userCollections/:userId" element={<CollectionList />} />
                 <Route path="gearDetails/:inventoryId" element={<GearDetails />} />
                 <Route path="inventoryDetails/:inventoryId" element={<InventoryDetails />} />
+                <Route path="receivedRequests" element={<ReceivedRequests />} />
+                <Route path="submittedRequests" element={<SubmittedRequests />} />
                 
             </Route>
         </Routes>

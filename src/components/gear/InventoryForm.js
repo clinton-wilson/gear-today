@@ -34,7 +34,8 @@ export const InventoryForm = () => {
             name: newInventory.name,
             manufacturer: newInventory.manufacturer,
             description: newInventory.description,
-            photo: newInventory.photo
+            photo: newInventory.photo,
+            lentOut: false
         }
 
         return fetch(`http://localhost:8088/inventorys`, {
