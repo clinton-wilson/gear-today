@@ -31,6 +31,17 @@ export const NavBar = () => {
                     </li>
                 </ul>
             </li>
+            <li className="navbar__item active">
+                <Link className="navbar__link" to="#">Purchase History</Link>
+                <ul>
+                    <li>
+                        <Link className="navbar__link" to="/soldGear">Sold Gear</Link>
+                    </li>
+                    <li>
+                        <Link className="navbar__link" to="/purchasedGear">Purchases</Link>
+                    </li>
+                </ul>
+            </li>
             <li className="navbar__item navbar__logout">
                 <Link className="navbar__link" to="" onClick={() => {
                     localStorage.removeItem("gear_user")

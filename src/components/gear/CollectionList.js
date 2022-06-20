@@ -33,7 +33,7 @@ export const CollectionList = () => {
 
                             })
                         }
-                        <button onClick={() => { navigate("/userCollections") }} className="backButton">Back to {inventory.fullName}'s Collection</button>
+                        <button onClick={() => { navigate("/userCollections") }} className="backButton">Back to Collections</button>
                     </section>
                 })
             }

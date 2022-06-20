@@ -1,53 +1,59 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
-export const InventoryForm = () => {
+export const GearEditForm = () => {
     const navigate = useNavigate()
     const localGearUser = localStorage.getItem("gear_user")
     const gearUserObject = JSON.parse(localGearUser)
-    const [userInventories, setUserInventories] = useState([])
+    const { inventoryId } = useParams()
+    const [gearTypes, setGearTypes] = useState([])
     const [newInventory, updateInventories] = useState({
+        userId: gearUserObject.id,
         gearTypeId: 0,
         name: "",
         manufacturer: "",
         description: "",
-        photo: ""
+        photo: "",
+        lentOut: ""
     })
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/gearTypes?_embed=inventorys`)
+            fetch(`http://localhost:8088/inventorys/?id=${inventoryId}`)
                 .then(res => res.json())
-                .then((userInventories) => {
-                    setUserInventories(userInventories)
+                .then((data) => {
+                    const userObjectInventory = data[0]
+                    updateInventories(userObjectInventory)
                 })
         },
         []
     )
 
-    const saveNewInventoryItem = (event) => {
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/gearTypes`)
+                .then(res => res.json())
+                .then((typeData) => {
+                    setGearTypes(typeData)
+                })
+        },
+        []
+    )
+    const editInventoryItem = (event) => {
         event.preventDefault()
 
-        const itemToAPI = {
-            userId: gearUserObject.id,
-            gearTypeId: newInventory.gearTypeId,
-            name: newInventory.name,
-            manufacturer: newInventory.manufacturer,
-            description: newInventory.description,
-            photo: newInventory.photo,
-            lentOut: false
-        }
 
-        return fetch(`http://localhost:8088/inventorys`, {
-            method: "POST",
+        return fetch(`http://localhost:8088/inventorys/${inventoryId}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(itemToAPI)
+            body: JSON.stringify(newInventory)
         })
             .then(res => res.json())
             .then(() => {
-                navigate("/inventory")
+                navigate(`/inventoryDetails/${inventoryId}`)
             })
     }
 
@@ -100,8 +106,9 @@ export const InventoryForm = () => {
                             copy.gearTypeId = parseInt(evt.target.value)
                             updateInventories(copy)
                         }
-                    }><option>Choose Gear Type</option>
-                        {userInventories.map(gearType => (
+                    }>
+                        <option>Choose Gear Type</option>
+                        {gearTypes.map(gearType => (
                             <option value={gearType.id}>
                                 {gearType.gearType}
                             </option>
@@ -145,9 +152,9 @@ export const InventoryForm = () => {
                 </div>
             </fieldset>
             <button
-                onClick={(clickEvent) => saveNewInventoryItem(clickEvent)}
+                onClick={(clickEvent) => editInventoryItem(clickEvent)}
                 className="myButton">
-                Add Inventory Item
+                Save
             </button>
         </form>
     )
