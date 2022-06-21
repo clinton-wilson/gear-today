@@ -1,14 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&display=swap');
+
 .navbar {
     display: flex;
     flex-wrap: nowrap;
     justify-content: left;
+    font-family: 'Righteous', cursive;
+    border-top: solid 5px#fcbf49;
+    box-shadow: 0 0 5px #003049;
+    margin: .5em;
+    width: 100%;
+    z-index: 1000;
 }
 
 .navbar__item {
     flex-basis: 20%;
-    list-style-type: none;
+    /* list-style-type: none; */
+
 }
 
-.navbar__logout {
+/* .navbar__logout {
     margin-left: auto;
+} */
+
+
+ul {
+    list-style: none;
+    z-index: 1000;
+}
+
+ul li {
+    float: left;
+    width: 100%;
+    height: 40px;
+    background-color: #d62828;
+    line-height: 40px;
+    text-align: center;
+    font-size: 1em;
+    text-shadow: 10px #003049;
+    z-index: 1000;
+}
+
+ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    z-index: 1000;
+}
+
+ul li a:hover {
+    background-color: #f77f00;
+    z-index: 1000;
+}
+
+ul li ul li {
+    display: none;
+    background-color: #fcbf49;
+    z-index: 1000;
+    opacity: .95;
+}
+
+ul li:hover ul li {
+    display: block;
+    z-index: 1000;
 }

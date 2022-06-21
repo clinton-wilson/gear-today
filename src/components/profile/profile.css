@@ -1,0 +1,14 @@
+.profileForm {
+    border: none;
+}
+.formGroup {
+    border: solid
+}
+fieldset {
+    border: none;
+    min-width: 200px;
+}
+label {
+    display: block;
+    margin-top: 1em;
+}

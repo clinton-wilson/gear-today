@@ -1,13 +1,15 @@
+import "./inventory.css"
+
 export const FindGear = ({ setterFunction }) => {
     return (
         <div>
-            <input
+            <input 
                 onChange={
                     (changeEvent) => {
                         setterFunction(changeEvent.target.value)
                     }
                 }
-                type="text" placeholder="Search for gear here" />
+                type="text" placeholder="Search for gear here"/>
         </div>
     )
 }

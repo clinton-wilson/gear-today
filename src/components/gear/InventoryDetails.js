@@ -118,8 +118,8 @@ export const InventoryDetails = () => {
             })
         }
 
-        <button onClick={() => { navigate(`/editGearForm/${inventoryId}`) }} className="backButton">Edit Item</button>
+        <button onClick={() => { navigate(`/editGearForm/${inventoryId}`) }} className="inventoryDetailsButton">Edit Item</button>
 
-        <button onClick={() => { navigate(`/inventory`) }} className="backButton">Back to Collection</button>
+        <button onClick={() => { navigate(`/inventory`) }} className="inventoryDetailsButton">Back to Collection</button>
     </section>
 }

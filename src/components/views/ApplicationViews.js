@@ -18,9 +18,7 @@ export const ApplicationViews = () => {
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>GearToday</h1>
                     <div>Keep track of your gear today!</div>
-
                     <Outlet />
                 </>
             }>

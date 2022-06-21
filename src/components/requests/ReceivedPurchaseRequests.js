@@ -104,9 +104,9 @@ export const ReceivedPurchaseRequests = () => {
             purchaseRequests.map((request) => {
                 const userMatch = users.find(({ id }) => id === request.buyerId)
                 if (gearUserObject.id === request.sellerId && request.requestStatus === "accepted")
-                    return <header className="acceptedRequest">You accepted {`${userMatch.fullName}`}'s request to buy your {request.inventorys.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
+                    return <header className="acceptedRequest">You accepted {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
                     if (gearUserObject.id === request.sellerId && request.requestStatus === "denied")
-                    return <header className="deniedRequest">You denied {`${userMatch.fullName}`}'s request to buy your {request.inventorys.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
+                    return <header className="deniedRequest">You denied {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
                 if (gearUserObject.id === request.sellerId) {
                     return <>
                         <footer>{`${userMatch.fullName}`} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>

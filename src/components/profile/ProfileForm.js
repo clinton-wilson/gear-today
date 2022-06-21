@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import "./profile.css"
 export const ProfileForm = () => {
     const navigate = useNavigate()
     const localGearUser = localStorage.getItem("gear_user")
@@ -41,7 +41,7 @@ export const ProfileForm = () => {
     }
 
     return (
-        <article>
+        <article className="profileForm">
             <form className="profileForm">
                 <h2 className="profile__title">Edit Profile</h2>
                 <fieldset>
