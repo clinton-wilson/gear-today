@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-
+import "./userCollections.css"
 export const UserCollections = () => {
 
     const [users, setUsers] = useState([])
@@ -18,16 +18,21 @@ export const UserCollections = () => {
         []
     )
     return <>
-        <h2>User Collections</h2>
-        {
-            users.map((user) => {
-                if (user.id !== gearUserObject.id)
-                    return <section className="userCollection">
-                        <h3><Link to={`/userCollections/${user.id}`}>{user.collectionName}</Link></h3>
-                        <header>{user.collectionDescription}</header>
-                        <footer>{user.fullName}'s collection</footer>
-                    </section>
-            })
-        }
+        <h2 className="title" >User Collections</h2>
+        <article className="userCollections">
+            {
+                users.map((user) => {
+                    if (user.id !== gearUserObject.id)
+                        return <><section className="userCollection"><div className="picDiv">
+                            <a href={`/userCollections/${user.id}`}><img className="profilePic" src={user.photo} alt="photo of the user"></img></a>
+                        </div><Link to={`/userCollections/${user.id}`}>
+                                <h3 className="detailFooter" >{user.collectionName}</h3>
+                                <footer className="detailFooter" >{user.collectionDescription}</footer>
+                                <footer className="detailFooter" >{user.fullName}'s collection</footer>
+
+                            </Link></section></>
+                })
+            }
+        </article>
     </>
 }

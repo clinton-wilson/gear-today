@@ -5,6 +5,7 @@ import { Requests } from "../requests/ReceivedBorrowRequests"
 export const GearDetails = () => {
     const { inventoryId } = useParams({ id: true })
     const [inventories, setInventories] = useState([])
+    const [requests, setRequests] = useState([])
     const [feedback, setFeedback] = useState("")
 
     useEffect(() => {
@@ -26,6 +27,18 @@ export const GearDetails = () => {
         },
         []
     )
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/borrowRequests?_expand=inventorys`)
+                .then(res => res.json())
+                .then((requestData) => {
+                    setRequests(requestData)
+                })
+        },
+        []
+    )
+
 
     const sendPurchaseRequest = (event, inventory) => {
         event.preventDefault()
@@ -60,7 +73,7 @@ export const GearDetails = () => {
             inventorysId: parseInt(inventoryId),
             requestStatus: "pending",
             dateBorrowed: "",
-            dateReturned: ""
+            dateResponded: ""
         }
         return fetch(`http://localhost:8088/borrowRequests`, {
             method: "POST",
@@ -82,31 +95,33 @@ export const GearDetails = () => {
         </div>
         {
             inventories.map((inventory) => {
+                const requestMatch = requests?.find(({ inventorysId }) => inventorysId === inventory?.id)
                 if (inventory.id === parseInt(inventoryId)) {
-                    if(inventory.lentOut){
-                    return <article className="details">
-                        <h2>{inventory.manufacturer} {inventory.name}</h2>
-                        <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
-                        <header>{inventory.description}</header>
-                        <footer>This item is currently unavailable</footer>
-                        <button onClick={() => {
-                            navigate(`/userCollections/${inventory.userId}
+                    if (inventory.lentOut) {
+                        return <article className="details">
+                            <h2>{inventory.manufacturer} {inventory.name}</h2>
+                            <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
+                            <header>{inventory.description}</header>
+                            <footer>This item is currently unavailable</footer>
+                            <button onClick={() => {
+                                navigate(`/userCollections/${inventory.userId}
                         `)
-                    }} className="backButton">Back to Collection</button>
-                    </article>}
+                            }} className="backButton">Back to Collection</button>
+                        </article>
+                    }
                     else {
                         return <article className="details">
-                        <h2>{inventory.manufacturer} {inventory.name}</h2>
-                        <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
-                        <header>{inventory.description}</header>
-                        <footer>Request</footer>
-                        <button onClick={(clickEvent) => sendBorrowRequest(clickEvent, inventory)} >Borrow</button>
-                        <button onClick={(clickEvent) => sendPurchaseRequest(clickEvent, inventory)} >Buy</button>
-                        <button onClick={() => {
-                            navigate(`/userCollections/${inventory.userId}
+                            <h2>{inventory.manufacturer} {inventory.name}</h2>
+                            <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
+                            <header>{inventory.description}</header>
+                            <footer>Request</footer>
+                            <button onClick={(clickEvent) => sendBorrowRequest(clickEvent, inventory)} >Borrow</button>
+                            <button onClick={(clickEvent) => sendPurchaseRequest(clickEvent, inventory)} >Buy</button>
+                            <button onClick={() => {
+                                navigate(`/userCollections/${inventory.userId}
                         `)
-                    }} className="backButton">Back to Collection</button>
-                    </article>
+                            }} className="backButton">Back to Collection</button>
+                        </article>
                     }
                 }
             })

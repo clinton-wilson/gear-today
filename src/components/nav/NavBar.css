@@ -5,7 +5,7 @@
     flex-wrap: nowrap;
     justify-content: left;
     font-family: 'Righteous', cursive;
-    border-top: solid 5px#fcbf49;
+    border-top: double 5px#fcbf49;
     box-shadow: 0 0 5px #003049;
     margin: .5em;
     width: 100%;
@@ -48,7 +48,7 @@ ul li a {
 }
 
 ul li a:hover {
-    background-color: #f77f00;
+    background-color: #003049;
     z-index: 1000;
 }
 

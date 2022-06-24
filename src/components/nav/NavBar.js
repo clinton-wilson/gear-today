@@ -21,24 +21,33 @@ export const NavBar = () => {
                 </ul>
             </li>
             <li className="navbar__item active">
-                <Link className="navbar__link" to="#">Requests</Link>
+                <Link className="navbar__link" to="#">Borrowed Gear</Link>
                 <ul>
                     <li>
-                        <Link className="navbar__link" to="/receivedRequests">Recieved Requests</Link>
+                        <Link className="navbar__link" to="/receivedBorrowRequests">Recieved Borrow Requests</Link>
                     </li>
                     <li>
-                        <Link className="navbar__link" to="/submittedRequests">Submitted Requests</Link>
+                        <Link className="navbar__link" to="/submittedBorrowRequests">Submitted Borrow Requests</Link>
+                    </li>
+                    <li>
+                        <Link className="navbar__link" to="/returnedGear">Returned Gear</Link>
                     </li>
                 </ul>
             </li>
             <li className="navbar__item active">
                 <Link className="navbar__link" to="#">Purchase History</Link>
                 <ul>
+                <li>
+                        <Link className="navbar__link" to="/receivedPurchaseRequests">Received Purchase Requests</Link>
+                    </li>
+                    <li>
+                        <Link className="navbar__link" to="/submittedPurchaseRequests">Submitted Purchase Requests</Link>
+                    </li>
                     <li>
                         <Link className="navbar__link" to="/soldGear">Sold Gear</Link>
                     </li>
                     <li>
-                        <Link className="navbar__link" to="/purchasedGear">Purchases</Link>
+                        <Link className="navbar__link" to="/purchasedGear">Purchased Gear</Link>
                     </li>
                 </ul>
             </li>

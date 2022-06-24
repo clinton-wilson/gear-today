@@ -94,13 +94,14 @@ export const InventoryForm = () => {
             <fieldset>
                 <div className="inventoryFormGroup">
                     <label htmlFor="gearType">Type of gear:  </label>
-                    <select value={newInventory.gearTypeId} onChange={
-                        (evt) => {
-                            const copy = { ...newInventory }
-                            copy.gearTypeId = parseInt(evt.target.value)
-                            updateInventories(copy)
-                        }
-                    }><option>Choose Gear Type</option>
+                    <select className="form-control"
+                        value={newInventory.gearTypeId} onChange={
+                            (evt) => {
+                                const copy = { ...newInventory }
+                                copy.gearTypeId = parseInt(evt.target.value)
+                                updateInventories(copy)
+                            }
+                        }><option>Choose Gear Type</option>
                         {userInventories.map(gearType => (
                             <option value={gearType.id}>
                                 {gearType.gearType}
@@ -126,7 +127,8 @@ export const InventoryForm = () => {
                         }
                     />
                 </div>
-            </fieldset>            <fieldset>
+            </fieldset>            
+            <fieldset>
                 <div className="inventoryFormGroup">
                     <label htmlFor="photo">Photo:</label>
                     <input

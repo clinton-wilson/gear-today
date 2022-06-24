@@ -3,11 +3,14 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 export const Register = (props) => {
+    const defaultPic ="https://media.istockphoto.com/photos/female-hand-showing-rock-n-roll-sign-or-giving-the-devil-horns-picture-id1055452218?k=20&m=1055452218&s=170667a&w=0&h=41R9b1XJ8eA5liJgJiAzLa7oz6LmvaJV4_lUdrsfJ7A="
+
     const [user, setUser] = useState({
         email: "",
         fullName: "",
         collectionName: "",
-        collectionDescription: ""
+        collectionDescription: "",
+        photo: defaultPic
     })
     let navigate = useNavigate()
     const registerNewUser = () => {
@@ -24,7 +27,7 @@ export const Register = (props) => {
                     localStorage.setItem("gear_user", JSON.stringify({
                         id: createdUser.id
                     }))
-                    navigate("/")
+                    navigate("/inventory")
                 }
             })
     }
@@ -54,7 +57,7 @@ export const Register = (props) => {
                 <h1 className="h3 mb-3 font-weight-normal">Please Register for GearToday</h1>
                 <fieldset>
                     <label htmlFor="fullName"> Full Name </label>
-                    <input onChange={updateUser}
+                    <input maxlength="30" onChange={updateUser}
                            type="text" id="fullName" className="form-control"
                            placeholder="Enter your name" required autoFocus />
                 </fieldset>
@@ -66,15 +69,21 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="collectionName"> Collection Name </label>
-                    <input onChange={updateUser}
+                    <input maxlength="30" onChange={updateUser}
                         type="text" id="collectionName" className="form-control"
                         placeholder="Collection Name" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="collectionDescription"> Collection Description </label>
                     <input onChange={updateUser}
-                        type="textArea" id="collectionDescription" className="form-control"
+                        type="textArea" maxlength="75" id="collectionDescription" className="form-control"
                         placeholder="Describe your collection" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="photoDescription"> Photo Description </label>
+                    <input onChange={updateUser}
+                        type="textArea" id="photoDescription" className="form-control"
+                        placeholder="Upload photo" />
                 </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import "./profile.css"
 export const Profile = () => {
     const [users, setUsers] = useState([])
     const localGearUser = localStorage.getItem("gear_user")
@@ -19,11 +19,23 @@ export const Profile = () => {
     )
 
     return <>
-        <h2>Your Profile</h2>
-        <article className="inventories">
+        <h2 className="title">Your Profile</h2>
+        <article className="profiles">
             {
                 users.map((user) => {
                     if (user.id === gearUserObject.id) {
+                        if (user.photo.length > 0) {
+                            return <div className="picDiv">
+                                <img className="profilePic" src={user.photo} alt="photo of the user"></img>
+                            </div>
+                        }
+                    }
+                })
+            }
+            {
+                users.map((user) => {
+                    if (user.id === gearUserObject.id) {
+
                         return <section className="profile">
                             <header className="profile__header">Name: {user.fullName}</header>
                             <footer className="profile__footer">Email: {user.email}</footer>

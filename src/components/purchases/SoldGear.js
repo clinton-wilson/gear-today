@@ -27,17 +27,24 @@ export const SoldGear = () => {
         []
     )
 
-    return <>
-        {
-            purchases.map((purchase) => {
-                const userMatch = users.find(({ id }) => id === purchase.buyerId )
-                if (gearUserObject.id === purchase.sellerId && purchase.requestStatus === "accepted") {
-                    return <>
-                    <footer>You sold your {purchase?.inventorys?.manufacturer} {purchase?.inventorys?.name} to {`${userMatch?.fullName}`} on {purchase?.datePurchased}</footer>
-                    </>
-                }
-            
-            })
+return <>
+<h3 className="titleRequest">Sold Gear</h3>
+        <article className="purchasesContainer">
+    {
+    purchases.map((purchase) => {
+        const userMatch = users.find(({ id }) => id === purchase.buyerId)
+        if (gearUserObject.id === purchase.sellerId && purchase.requestStatus === "accepted") {
+            return <section className="purchase">
+                <div className="purchasePics">
+                                <img className="inventoryPic" src={purchase?.inventorys?.photo} alt={purchase?.inventorys?.description}>
+                                </img>
+                            </div>
+                <footer className="purchaseHeader">You sold your {purchase?.inventorys?.manufacturer} {purchase?.inventorys?.name} to {`${userMatch?.fullName}`} on {purchase?.dateResponded}</footer>
+            </section>
         }
-    </>
+
+    })
+}
+</article>
+</>
 }

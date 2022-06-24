@@ -3,10 +3,17 @@ import { ReceivedPurchaseRequests } from "./ReceivedPurchaseRequests"
 
 export const ReceivedRequests = () => {
     return <>
-    <h2>Received Requests</h2>
-    <h3>Borrow Requests</h3>
-    <ReceivedBorrowRequests />
-    <h3>Purchase Requests</h3>
-    <ReceivedPurchaseRequests />
+        <h2 className="mainTitleRequest">Received Requests</h2>
+        <article className="requests">
+            <div className="requestContainer">
+            <h3 className="titleRequest">Borrow Requests</h3>
+            <ReceivedBorrowRequests />
+            </div>
+            
+        </article>
     </>
 }
+/* <div className="requestContainer">
+            <h3 className="titleRequest">Purchase Requests</h3>
+            <ReceivedPurchaseRequests className="requestRow" />
+            </div> */

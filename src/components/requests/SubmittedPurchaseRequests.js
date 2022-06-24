@@ -27,19 +27,28 @@ export const SubmittedPurchaseRequests = () => {
         []
     )
 
-    return <article className="purchaseRequest">
+    return <article className="requestsContainer">
+        <div className="mainTitleRequest">
+        <h2>Submitted Purchase Requests</h2>
+        </div>
         {
             purchaseRequests.map((request) => {
                 const userMatch = users.find(({ id }) => id === request.sellerId)
                 if (gearUserObject.id === request.buyerId && request.requestStatus === "accepted")
-                    return <header className="acceptedRequest">{`${userMatch?.fullName}`} accepted your request to buy their {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
+                    return <section className="request">
+                        <div className="requestPics">
+                            <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                        </div>
+                        <header className="requestHeader">{`${userMatch?.fullName}`} accepted your request to buy their {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.dateResponded}</header></section>
                 if (gearUserObject.id === request.buyerId && request.requestStatus === "denied")
-                    return <header className="deniedRequest">{`${userMatch?.fullName}`}denied your request to buy their {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
+                    return <section className="request">
+                        <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.descriptioin}></img> 
+                        <header className="requestHeader">{`${userMatch?.fullName}`} denied your request to buy their {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.dateResponded}</header></section>
                 if (gearUserObject.id === request.buyerId && request.requestStatus === "pending") {
-                    return <>
-                        <footer>Your request to buy {`${userMatch?.fullName}`} {request?.inventorys?.manufacturer} {request?.inventorys?.name} is pending</footer>
-                        
-                    </>
+                    return <section className="request">
+                        <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.descriptioin}></img>
+                        <footer className="requestHeader">Your request to buy {`${userMatch?.fullName}`} {request?.inventorys?.manufacturer} {request?.inventorys?.name} is pending</footer>
+                    </section>
                 }
             })
         }

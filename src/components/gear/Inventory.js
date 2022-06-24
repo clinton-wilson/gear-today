@@ -53,16 +53,16 @@ export const Inventory = ({ searchTermState }) => {
 
     
     return <>
-        <h2>Your Inventory</h2>
+        <h2 className="titleInventory">Your Inventory</h2>
         
         <article className="inventories">
             {
                 foundGear.map((inventory) => {
                     if (gearUserObject.id === inventory.userId) {
-                        return <section className="inventory">
-                            <img src={inventory.photo} alt={inventory.description}></img>
-                            <header className="inventory__header"><Link to={`/inventoryDetails/${inventory.id}`}>{inventory.manufacturer} {inventory.name}</Link></header>
-                        </section>
+                        return <Link to={`/inventoryDetails/${inventory.id}`}><section className="inventory">
+                            <img className="inventoryPic" src={inventory.photo} alt={inventory.description}></img>
+                            <header className="inventory__header">{inventory.manufacturer} {inventory.name}</header>
+                        </section></Link>
                     }
 
                 })

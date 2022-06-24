@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import "./request.css"
 
 export const ReceivedPurchaseRequests = () => {
     const [purchaseRequests, setPurchaseRequests] = useState([])
@@ -34,7 +35,7 @@ export const ReceivedPurchaseRequests = () => {
             buyerId: request.buyerId,
             sellerId: request.sellerId,
             inventorysId: request.inventorysId,
-            datePurchased: new Date().toLocaleDateString(),
+            dateResponded: new Date().toLocaleDateString(),
             requestStatus: "accepted"
         }
         fetch(`http://localhost:8088/purchases/${request.id}`, {
@@ -79,7 +80,7 @@ export const ReceivedPurchaseRequests = () => {
             buyerId: request.buyerId,
             sellerId: request.sellerId,
             inventorysId: request.inventorysId,
-            datePurchased: "",
+            dateResponded: new Date().toLocaleDateString(),
             requestStatus: "denied"
         }
         fetch(`http://localhost:8088/purchases/${request.id}`, {
@@ -99,22 +100,54 @@ export const ReceivedPurchaseRequests = () => {
             })
     }
 
-    return <article className="purchaseRequest">
+    return <article className="requestsContainer">
+        <div className="mainTitleRequest">
+        <h2>Received Purchase Requests</h2>
+        </div>
+    {   
+        purchaseRequests.map((request) => {
+            const userMatch = users.find(({ id }) => id === request.buyerId)
+            if (gearUserObject.id === request.sellerId && request?.requestStatus === "pending") {
+                return <article className="requests">
+                    <section className="request">
+                    <div className="requestPics">
+                        <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                    </div>
+                    <footer className="requestHeader">{userMatch?.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
+                    <div className="requestButton">
+                    <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
+                    <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
+                </div>
+                </section>
+                </article>
+            }
+        }).reverse()
+    }
         {
             purchaseRequests.map((request) => {
                 const userMatch = users.find(({ id }) => id === request.buyerId)
-                if (gearUserObject.id === request.sellerId && request.requestStatus === "accepted")
-                    return <header className="acceptedRequest">You accepted {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
-                    if (gearUserObject.id === request.sellerId && request.requestStatus === "denied")
-                    return <header className="deniedRequest">You denied {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.datePurchased}</header>
-                if (gearUserObject.id === request.sellerId) {
-                    return <>
-                        <footer>{`${userMatch.fullName}`} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
-                        <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
-                        <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
-                    </>
-                }
+                if (gearUserObject.id === request.sellerId && request.requestStatus === "accepted" || request?.requestStatus === "denied")
+                    return <section className="request">
+                        <div className="requestPics">
+                            {/* <img className="requestPic" src={`${userMatch?.photo}`} alt={request?.user?.description}></img> */}
+                            <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                        </div>
+                        <header className="requestHeader">You {request?.requestStatus} {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.dateResponded}</header></section>
+                
+                // if (gearUserObject.id === request.sellerId) {
+                //     return <section className="request">
+                //         <div className="requestPics">
+                //             {/* <img className="requestPic" src={`${userMatch?.photo}`} alt={request?.user?.description}></img> */}
+                //             <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                //         </div>
+                //         <footer className="requestHeader">{userMatch.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
+                //         <div className="requestButton">
+                //         <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
+                //         <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
+                //     </div>
+                //     </section>
+                // }
             })
         }
-    </article>
+        </article>
 }

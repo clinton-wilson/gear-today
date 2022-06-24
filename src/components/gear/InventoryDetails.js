@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-
+import "./inventory.css"
 export const InventoryDetails = () => {
     const { inventoryId } = useParams()
     const [inventories, setInventories] = useState([])
@@ -16,14 +16,15 @@ export const InventoryDetails = () => {
             gearTypeId: item.gearTypeId,
             inventorysId: item.inventorysId,
             requestStatus: "returned",
+            requestId: item.id,
             dateBorrowed: item.dateBorrowed,
             dateReturned: new Date().toLocaleDateString()
         }
 
 
 
-        fetch(`http://localhost:8088/borrowRequests/${item.id}`, {
-            method: "PUT",
+        fetch(`http://localhost:8088/returnedGear`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -48,6 +49,11 @@ export const InventoryDetails = () => {
                     body: JSON.stringify(returnedItemToAPI)
                 })
                     .then(res => res.json())
+                    .then(() => {
+                        fetch(`http://localhost:8088/borrowRequests/${item.id}`, {
+                            method: "DELETE"
+                        })
+                    })
             })
             .then(() => {
                 fetch(`http://localhost:8088/borrowRequests?_expand=inventorys&_expand=user`)
@@ -90,10 +96,10 @@ export const InventoryDetails = () => {
             inventories.map((inventory) => {
                 if (inventory.id === parseInt(inventoryId) && inventory.lentOut === false) {
                     return <article className="details">
-                        <h2>{inventory.manufacturer} {inventory.name}</h2>
+                        <h2 className="gearName" >{inventory.manufacturer} {inventory.name}</h2>
                         <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
-                        <header>{inventory.description}</header>
-                        <footer>You have this item</footer>
+                        <header className="description">{inventory.description}</header>
+                        <footer className="status">You have this item</footer>
                     </article>
                 }
                 if (inventory.lentOut === false) {
@@ -107,10 +113,10 @@ export const InventoryDetails = () => {
             requestInventories.map((request) => {
                 if (request.inventorysId === parseInt(inventoryId) && request?.inventorys?.lentOut) {
                     return <article className="details">
-                        <h2>{request.inventorys.manufacturer} {request.inventorys.name}</h2>
+                        <h2 className="gearName">{request.inventorys.manufacturer} {request.inventorys.name}</h2>
                         <img className="photoDetails" src={request.inventorys.photo} alt={request.inventorys.description}></img>
-                        <header>{request.inventorys.description}</header>
-                        <footer>This item is being borrowed by {request?.user?.fullName}</footer>
+                        <header className="description">{request.inventorys.description}</header>
+                        <footer className="status">This item is being borrowed by {request?.user?.fullName}</footer>
                         <button onClick={(clickEvent) => { returnedItem(clickEvent, request) }} >Item returned</button>
                     </article>
                 }

@@ -3,10 +3,16 @@ import { SubmittedPurchaseRequests } from "./SubmittedPurchaseRequests"
 
 export const SubmittedRequests = () => {
     return <>
-        <h2>Submitted Requests</h2>
-        <h3>Borrow Requests</h3>
-        <SubmittedBorrowRequests />
-        <h3>Purchase Requests</h3>
-        <SubmittedPurchaseRequests />
+        <h2 className="mainTitleRequest">Submitted Requests</h2>
+        <article className="requests">
+            <div className="requestContainer">
+                <h3 className="titleRequest">Borrow Requests</h3>
+                <SubmittedBorrowRequests className="requestRow" />
+            </div>
+            {/* <div className="requestContainer">
+                <h3 className="titleRequest">Purchase Requests</h3>
+                <SubmittedPurchaseRequests className="requestRow" />
+            </div> */}
+        </article>
     </>
 }

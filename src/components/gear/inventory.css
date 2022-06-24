@@ -1,16 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&display=swap');
+
 .inventories {
   display: flex;
+  padding: 10px;
+  margin: 2em;
   flex-wrap: wrap;
-  margin: 2rem;
-  align-content: center;
+}
+
+.inventoryPic {
+  object-fit: cover;
+  height: 100px;
+  width: 200px;
+}
+
+.titleInventory {
+  color: #003049;
+  font-size: 5em;
+  text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1em;
+  border-bottom: double .5em #003049;
+  background-color: #faedcd;
 }
 
 .inventory {
   display: flex;
+  background-color: white;
+  margin: 2em;
   flex-direction: column;
-  margin: 2rem;
-  align-content: center;
-  border: solid;
+  align-items: center;
+  padding: 1em;
+  width: 15em;
+  height: 12em;
+  border: double #fcbf49;
+  text-align: center;
+  padding: 1em;
+}
+
+.detailFooter {
+  margin-top: 1em;
+}
+
+.profilePic {
+  display: block;
+  width: 10em;
+  height: 10em;
+  margin: .5em;
+  clip-path: circle();
+}
+
+.gearDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.gearName {
+  font-size: 5em;
+  font-family: 'Righteous', cursive;
+  color: #003049;
+  text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+}
+
+.inventory:hover {
+  transform: scale(1.25);
+}
+
+.userCollection:hover {
+  transform: scale(1.1);
 }
 
 .myButton {
@@ -26,14 +83,29 @@
 
 
 .photoDetails {
-  width: 30rem;
-  height: auto;
-  align-content: center;
+  height: 20em;
+  width: auto;
+  border: double #fcbf49;
+  padding: 1em;
+  background-color: white;
+  margin-top: 1em;
+}
+
+.description {
+  margin-top: 1em;
+  font-size: 2em;
+  font-family: 'Righteous', cursive;
+  color: #003049;
+}
+
+.status {
+  margin-top: 1em;
 }
 
 .details {
   display: flex;
   flex-direction: column;
+  margin: 1em;
 }
 
 button {
@@ -42,8 +114,10 @@ button {
 
 .feedback {
   border: 1px dotted cadetblue;
+  width: 2em;
   padding: 1rem;
-  background-color: rgb(218, 230, 247);
+  background-color: #003049;
+  color: white;
   position: absolute;
   top: 20%;
   left: 50%;
@@ -76,12 +150,17 @@ button {
   }
 }
 
+.search {
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
 .gearSearch {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px double #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 
@@ -89,9 +168,12 @@ button {
 
 .inventory__header {
   text-decoration: none;
-  color: #d62828;
+  margin-top: 1em;
+  border-top: double #003049;
+  padding-top: 2px;
 }
 
 .inventoryDetailsButton {
   float: left;
+
 }

@@ -1,0 +1,71 @@
+.userCollections {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.userCollection {
+    display: flex;
+    background-color: white;
+    margin: 2em;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    width: 15em;
+    height: 25em;
+    border: double #fcbf49;
+    align-content: center;
+    padding: 1em;
+}
+
+.collectionTitle {
+    display: flex;
+    flex-direction: column;
+}
+
+.collectionList {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.collectionLists {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.collections {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.collection {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: white;
+    margin: 2em;
+    align-items: center;
+    padding: 1em;
+    width: 18em;
+    height: 10em;
+    border: double #fcbf49;
+    align-content: center;
+    padding: 1em;
+    background-color: white;
+}
+
+.collection:hover {
+    transform: scale(1.1);
+}
+
+.title {
+    color: #003049;
+    font-size: 5em;
+    text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+    align-items: center;
+    text-align: left;
+    margin-bottom: .25em;
+    border-bottom: double .5em #003049;
+    background-color: #faedcd;
+}

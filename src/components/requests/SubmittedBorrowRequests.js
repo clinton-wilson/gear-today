@@ -28,21 +28,25 @@ export const SubmittedBorrowRequests = () => {
         []
     )
 
-    
-    return <>
+
+    return <article className="requestsContainer">
+
         {
             requestInventories?.map((request) => {
-                const inventoryMatch = userInventories?.find(({ id }) => id === request.inventorysId)
-                if (request.userId === gearUserObject.id && request.requestStatus === "pending") {
-                    return <header>You requested to borrow {`${inventoryMatch?.user?.fullName}`}'s {request?.inventorys?.manufacturer} {request?.inventorys?.name}</header>
+                const inventoryMatch = userInventories?.find(({ id }) => id === request?.inventorysId)
+                if (request?.userId === gearUserObject.id && request?.requestStatus === "pending") {
+                    return <section className="request">
+                        <div className="requestPics">
+                            <img className="inventoryPic" src={request?.inventorys?.photo}
+                                alt={request?.inventorys?.description}></img>
+                        </div>
+                        <header className="requestHeader">Your request to borrow {`${inventoryMatch?.user?.fullName}`}'s {request?.inventorys?.manufacturer} {request?.inventorys?.name} is pending</header>
+                    </section>
                 }
-                if (request.userId === gearUserObject.id && request.requestStatus === "accepted") {
-                    return <header>Your request to borrow {`${inventoryMatch?.user?.fullName}`}'s {request?.inventorys?.manufacturer} {request?.inventorys?.name} was accepted</header>
-                }
-                if (request.userId === gearUserObject.id && request.requestStatus === "denied") {
-                    return <header>Your request to borrow {`${inventoryMatch?.user?.fullName}`}'s {request?.inventorys?.manufacturer} {request?.inventorys?.name} was denied</header>
-                }
+                
+
+               
             })
         }
-    </>
+    </article>
 }

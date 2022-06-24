@@ -2,7 +2,7 @@
     border: none;
 }
 .formGroup {
-    border: solid
+    border: double
 }
 fieldset {
     border: none;
@@ -11,4 +11,41 @@ fieldset {
 label {
     display: block;
     margin-top: 1em;
+}
+
+.profile {
+    padding: 1em;
+    margin: .5em;
+    color: #003049;
+    text-align: center;
+    align-items: center;
+}
+.profiles {
+    display: flex;
+    margin: 1em;
+}
+
+.profile__header {
+    font-size: 2em;
+    margin-bottom: 1em;
+    border-bottom: double #003049;
+}
+
+.profile__footer {
+    font-size: 1em;
+}
+
+.profilePic{
+    display: block;
+    width: 10em;
+    height: 10em;
+    margin: .5em;
+    clip-path: circle();
+}
+
+.picDiv {
+    background-color: #fcbf49;
+    clip-path: circle();
+    width: fit-content;
+    height: fit-content;
 }

@@ -100,7 +100,7 @@ export const GearEditForm = () => {
             <fieldset>
                 <div className="inventoryFormGroup">
                     <label htmlFor="gearType">Type of gear:  </label>
-                    <select value={newInventory.gearTypeId} onChange={
+                    <select className="form-control" value={newInventory.gearTypeId} onChange={
                         (evt) => {
                             const copy = { ...newInventory }
                             copy.gearTypeId = parseInt(evt.target.value)

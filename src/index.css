@@ -2,11 +2,12 @@
 
 body {
   margin: 1rem;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Righteous', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #faedcd;
   z-index: 1;
+  color: #003049;
 }
 
 code {
@@ -16,7 +17,7 @@ code {
 
 img {
   float: left;
-  width: 100px;
+  max-width: fit-content;
   height: 100px;
   object-fit: cover;
 }
@@ -27,17 +28,41 @@ img {
   box-sizing: border-box;
 }
 
+h2{
+  font-size: 3em;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Righteous', cursive;
+}
 
 .logo {
   font-family: 'Righteous', cursive;
-  font-size: 5em;
+  font-size: 7em;
+  width: 100%;
+  height: 1.5em;
   color: #d62828;
   text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
   display: flex;
   flex-direction: column;
+  /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK8xP-tbknDTagp6z4yyvnSj89haRuw_du_A&usqp=CAU");
+  background-repeat: no-repeat;
+  background-size: contain; */
 }
 
-
+.title {
+  color: #003049;
+  font-size: 3em;
+  text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+}
+.track {
+  margin-left: 1em;
+  font-size: .25em;
+  text-shadow: none;
+  color: #fcbf49;
+}
 
 a {
   text-decoration: none;
@@ -46,7 +71,7 @@ a {
 
 button {
   background: #003049;
-  border: 1px solid #003049;
+  border: 1px double #003049;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
   box-sizing: border-box;
@@ -54,14 +79,13 @@ button {
   cursor: pointer;
   display: inline-block;
   font-family: 'Righteous', cursive;
-  ;
   font-size: 16px;
   font-weight: 300;
   line-height: 16px;
   min-height: 40px;
   outline: 0;
   padding: 12px 14px;
-  margin: 1em;
+  margin: .5em;
   text-align: center;
   text-rendering: geometricprecision;
   text-transform: none;
@@ -91,12 +115,13 @@ button:active {
   height: 58px;
 } */
 
-input[type=text], select {
+input[type=text],
+select {
   width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px double #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -106,7 +131,7 @@ input[type=text], select {
 }
 
 .formGroup {
-  border: solid
+  border: double
 }
 
 fieldset {
@@ -119,12 +144,16 @@ label {
   margin-top: 1em;
 }
 
+.form-control {
+  box-shadow: 1px 1px 1px 1px #002f49c1;
+}
+
 select {
   width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px double #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }

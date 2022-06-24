@@ -12,13 +12,15 @@ import { PurchasedGear } from "../purchases/PurchasedGear"
 import { SoldGear } from "../purchases/SoldGear"
 import { ReceivedRequests } from "../requests/ReceivedRequests"
 import { SubmittedRequests } from "../requests/SubmittedRequests"
+import { ReturnedGear } from "../requests/ReturnedGear"
+import { SubmittedPurchaseRequests } from "../requests/SubmittedPurchaseRequests"
+import { ReceivedPurchaseRequests } from "../requests/ReceivedPurchaseRequests"
 
 export const ApplicationViews = () => {
     return (
         <Routes>
             <Route path="/" element={
                 <>
-                    <div>Keep track of your gear today!</div>
                     <Outlet />
                 </>
             }>
@@ -31,12 +33,14 @@ export const ApplicationViews = () => {
                 <Route path="userCollections/:userId" element={<CollectionList />} />
                 <Route path="gearDetails/:inventoryId" element={<GearDetails />} />
                 <Route path="inventoryDetails/:inventoryId" element={<InventoryDetails />} />
-                <Route path="receivedRequests" element={<ReceivedRequests />} />
-                <Route path="submittedRequests" element={<SubmittedRequests/>} />
+                <Route path="receivedBorrowRequests" element={<ReceivedRequests />} />
+                <Route path="submittedBorrowRequests" element={<SubmittedRequests/>} />
                 <Route path="soldGear" element={<SoldGear />} />
                 <Route path="purchasedGear" element={<PurchasedGear/>} />
                 <Route path="editGearForm/:inventoryId" element={<GearEditForm/>} />
-                
+                <Route path="returnedGear" element={<ReturnedGear/>} />
+                <Route path="receivedPurchaseRequests" element={<ReceivedPurchaseRequests/>} />
+                <Route path="submittedPurchaseRequests" element={<SubmittedPurchaseRequests/>} />
             </Route>
         </Routes>
     )

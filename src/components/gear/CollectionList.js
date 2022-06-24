@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import "./inventory.css"
+import "./userCollections.css"
 
 export const CollectionList = () => {
     const { userId, inventoryId } = useParams()
@@ -17,26 +17,31 @@ export const CollectionList = () => {
         [userId]
     )
     return <>
-        <article className="collectionDetails">
+        <article>
             {
                 userInventory.map((inventory) => {
                     return <section>
-                        <h2>{inventory.collectionName}</h2>
-                        <header>{inventory.fullName}'s gear</header>
-                        <footer>{inventory.collectionDescription}</footer>
+                        <div className="collectionTitle">
+                            <h2 className="title">{inventory.collectionName}</h2>
+                            <header>{inventory.fullName}'s gear</header>
+                            <header>{inventory.collectionDescription}</header>
+                        </div>
                         {
                             inventory.inventorys.map((inventory) => {
-                                return <section className="userInventoryItem">
-                                    <img src={inventory.photo} alt={inventory.description}></img>
-                                    <footer><Link to={`/gearDetails/${inventory.id}`}>{inventory.manufacturer} {inventory.name}</Link></footer>
-                                </section>
+                                return <Link to={`/gearDetails/${inventory.id}`}>
+                                    <section className="collections">
+                                        <div className="collection">
+                                            <img className="inventoryPic" src={inventory.photo} alt={inventory.description}></img>
+                                            <footer>{inventory.manufacturer} {inventory.name}</footer>
+                                        </div>
+                                    </section></Link>
 
                             })
                         }
-                        <button onClick={() => { navigate("/userCollections") }} className="backButton">Back to Collections</button>
                     </section>
                 })
             }
         </article>
+        <button onClick={() => { navigate("/userCollections") }} className="backButton">Back to Collections</button>
     </>
 }

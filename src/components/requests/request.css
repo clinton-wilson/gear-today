@@ -1,0 +1,81 @@
+.inventoryPic {
+    object-fit: cover;
+    height: 100px;
+    width: 200px;
+}
+
+.requests {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.requestContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex: 50%;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+}
+
+.requestsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.requestHeader {
+    border-top: double #003049;
+    margin-top: 1em;
+}
+
+/* .requestRow {
+    flex: 50%;
+    align-content: center;
+} */
+
+.request {
+    display: flex;
+    background-color: white;
+    margin: 3em;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 1em;
+    width: 15em;
+    height: 17em;
+    border: double #fcbf49;
+    align-content: center;
+    padding: 1em;
+}
+
+.mainTitleRequest {
+    color: #003049;
+    text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+    border-bottom: double .5em #003049;
+}
+
+.titleRequest {
+    color: #003049;
+    font-size: 3em;
+    text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+    border-bottom: double .5em #003049;
+}
+
+.requestButton {
+    display: flex;
+}
+
+/* img {
+    max-width: 13em;
+    max-height: auto;
+    text-align: center;
+} */

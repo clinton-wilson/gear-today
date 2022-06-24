@@ -1,0 +1,50 @@
+.returns {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.requestContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex: 50%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.returnedItem {
+    display: flex;
+    background-color: white;
+    margin: 3em;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 1em;
+    width: 15em;
+    height: 15em;
+    border: double #fcbf49;
+    align-content: center;
+    padding: 1em;
+}
+
+.inventoryPic {
+    object-fit: cover;
+    height: 100px;
+    width: 200px;
+}
+
+.returnHeader {
+    border-top: double #003049;
+    margin-top: 1em;
+}
+
+.titleReturns {
+    color: #003049;
+    font-size: 5em;
+    text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+    border-bottom: double .5em #003049;
+    background-color: #faedcd;
+}

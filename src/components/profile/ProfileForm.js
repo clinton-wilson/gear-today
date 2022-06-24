@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./profile.css"
 export const ProfileForm = () => {
+    const defaultPic ="https://media.istockphoto.com/photos/female-hand-showing-rock-n-roll-sign-or-giving-the-devil-horns-picture-id1055452218?k=20&m=1055452218&s=170667a&w=0&h=41R9b1XJ8eA5liJgJiAzLa7oz6LmvaJV4_lUdrsfJ7A="
     const navigate = useNavigate()
     const localGearUser = localStorage.getItem("gear_user")
     const gearUserObject = JSON.parse(localGearUser)
@@ -9,7 +10,8 @@ export const ProfileForm = () => {
         fullName: "",
         email: "",
         collectionName: "",
-        collectionDescription: ""
+        collectionDescription: "",
+        photo: defaultPic
     })
 
     useEffect(
@@ -63,7 +65,6 @@ export const ProfileForm = () => {
                     <div className="form-group">
                         <label htmlFor="email">Email:</label>
                         <input
-                            required autoFocus
                             type="text"
                             className="form-control"
                             value={profile.email}
@@ -78,7 +79,6 @@ export const ProfileForm = () => {
                     <div className="form-group">
                         <label htmlFor="collectionName">Collection Name:</label>
                         <input
-                            required autoFocus
                             type="text"
                             className="form-control"
                             value={profile.collectionName}
@@ -92,7 +92,6 @@ export const ProfileForm = () => {
                     </div><div className="form-group">
                         <label htmlFor="collectionDescription">Collection Description:</label>
                         <input
-                            required autoFocus
                             type="text"
                             className="form-control"
                             value={profile.collectionDescription}
@@ -105,6 +104,24 @@ export const ProfileForm = () => {
                             } />
                     </div>
                 </fieldset>
+                <fieldset>
+                <div className="inventoryFormGroup">
+                    <label htmlFor="photo">Photo:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Add photo"
+                        value={profile.photo}
+                        onChange={
+                            (evt) => {
+                                const copy = { ...profile }
+                                copy.photo = evt.target.value
+                                updateProfile(copy)
+                            }
+                        }
+                    />
+                </div>
+            </fieldset>
                 <button
                     onClick={(clickEvent) => saveNewProfileItem(clickEvent)}
                     className="myButton">
