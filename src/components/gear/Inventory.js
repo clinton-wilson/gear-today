@@ -43,22 +43,38 @@ export const Inventory = ({ searchTermState }) => {
 
     useEffect(
         () => {
-            const searchedGear = inventoryGearType.filter(inventory => {
-                return inventory.name.toLowerCase().startsWith(searchTermState.toLowerCase()) || inventory.manufacturer.toLowerCase().startsWith(searchTermState.toLowerCase()) || inventory.gearType.gearType.toLowerCase().startsWith(searchTermState.toLowerCase())
-            })
-            setFoundGear(searchedGear)
+            if (searchTermState === "") {
+                inventories.map((inventory) => {
+                    if (gearUserObject.id === inventory.userId) {
+                        return <Link to={`/inventoryDetails/${inventory.id}`}><section className="inventory">
+                            <img className="inventoryPic" src={inventory.photo} alt={inventory.description}></img>
+                            <header className="inventory__header">{inventory.manufacturer} {inventory.name}</header>
+                        </section></Link>
+                    }
+
+                })
+                setFoundGear(inventories)
+            }
+
+            else {
+                const searchedGear = inventoryGearType.filter(inventory => {
+                    return inventory.name.toLowerCase().startsWith(searchTermState.toLowerCase()) || inventory.manufacturer.toLowerCase().startsWith(searchTermState.toLowerCase()) || inventory.gearType.gearType.toLowerCase().startsWith(searchTermState.toLowerCase())
+                    
+                })
+                setFoundGear(searchedGear)
+            }
         },
         [searchTermState]
     )
 
-    
+
     return <>
         <h2 className="titleInventory">Your Inventory</h2>
-        
+
         <article className="inventories">
             {
                 foundGear.map((inventory) => {
-                    if (gearUserObject.id === inventory.userId) {
+                    {
                         return <Link to={`/inventoryDetails/${inventory.id}`}><section className="inventory">
                             <img className="inventoryPic" src={inventory.photo} alt={inventory.description}></img>
                             <header className="inventory__header">{inventory.manufacturer} {inventory.name}</header>

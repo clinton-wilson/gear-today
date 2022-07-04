@@ -37,6 +37,11 @@
 .collections {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.gearHeader {
+    margin-left: 1em;
 }
 
 .collection {
@@ -47,7 +52,7 @@
     margin: 2em;
     align-items: center;
     padding: 1em;
-    width: 18em;
+    width: fit-content;
     height: 10em;
     border: double #fcbf49;
     align-content: center;

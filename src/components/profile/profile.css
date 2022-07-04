@@ -49,3 +49,9 @@ label {
     width: fit-content;
     height: fit-content;
 }
+.picBG {
+    background-color: #fcbf49;
+    /* clip-path: circle(); */
+    width: fit-content;
+    height: fit-content;
+}

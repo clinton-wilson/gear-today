@@ -89,15 +89,30 @@ export const GearDetails = () => {
 
     }
 
+    const reversedInventories = inventories.map(inventory => inventory).reverse()
+
     return <section className="gearDetails">
         <div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
             {feedback}
         </div>
         {
-            inventories.map((inventory) => {
+            reversedInventories.map((inventory) => {
                 const requestMatch = requests?.find(({ inventorysId }) => inventorysId === inventory?.id)
+                console.log(requestMatch)
                 if (inventory.id === parseInt(inventoryId)) {
                     if (inventory.lentOut) {
+                        return <article className="details">
+                            <h2>{inventory.manufacturer} {inventory.name}</h2>
+                            <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
+                            <header>{inventory.description}</header>
+                            <footer>This item is currently unavailable</footer>
+                            <button onClick={() => {
+                                navigate(`/userCollections/${inventory.userId}
+                        `)
+                            }} className="backButton">Back to Collection</button>
+                        </article>
+                    }
+                    if (inventory.id === requestMatch?.inventorysId && requestMatch?.requestStatus === "pending") {
                         return <article className="details">
                             <h2>{inventory.manufacturer} {inventory.name}</h2>
                             <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>

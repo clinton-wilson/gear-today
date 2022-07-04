@@ -6,7 +6,15 @@ export const InventoryDetails = () => {
     const [inventories, setInventories] = useState([])
     const [requestInventories, setRequestInventories] = useState([])
     const navigate = useNavigate()
+    const localGearUser = localStorage.getItem("gear_user")
+    const gearUserObject = JSON.parse(localGearUser)
+    const [feedback, setFeedback] = useState("")
 
+    useEffect(() => {
+        if (feedback !== "") {
+            setTimeout(() => setFeedback(""), 3000);
+        }
+    }, [feedback])
 
     const returnedItem = (event, item) => {
         event.preventDefault()
@@ -73,7 +81,7 @@ export const InventoryDetails = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/inventorys`)
+            fetch(`http://localhost:8088/inventorys?_expand=user`)
                 .then(res => res.json())
                 .then((inventoryData) => {
                     setInventories(inventoryData)
@@ -91,22 +99,89 @@ export const InventoryDetails = () => {
         },
         []
     )
+
+    const sendPurchaseRequest = (event, inventory) => {
+        event.preventDefault()
+
+        const requestObjectToAPI = {
+            buyerId: gearUserObject.id,
+            sellerId: inventory.userId,
+            inventorysId: inventory.id,
+            datePurchased: "",
+            requestStatus: "pending"
+        }
+        return fetch(`http://localhost:8088/purchases`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObjectToAPI)
+        })
+            .then(res => res.json())
+            .then(() => {
+                setFeedback("Your request has been submitted!")
+            })
+
+    }
+
+    const sendBorrowRequest = (event, inventory) => {
+        event.preventDefault()
+
+        const requestObjectToAPI = {
+            userId: gearUserObject.id,
+            gearTypeId: inventory.gearTypeId,
+            inventorysId: parseInt(inventoryId),
+            requestStatus: "pending",
+            dateBorrowed: "",
+            dateResponded: ""
+        }
+        return fetch(`http://localhost:8088/borrowRequests`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObjectToAPI)
+        })
+            .then(res => res.json())
+            .then(() => {
+                setFeedback("Your request has been submitted!")
+            })
+            .then(() => {
+                fetch(`http://localhost:8088/inventorys?_expand=user`)
+                .then(res => res.json())
+                .then((inventoryData) => {
+                    setInventories(inventoryData)
+                })
+            })
+
+    }
     return <section className="gearDetails">
         {
             inventories.map((inventory) => {
-                if (inventory.id === parseInt(inventoryId) && inventory.lentOut === false) {
+                if (inventory.id === parseInt(inventoryId) && inventory.lentOut === false && gearUserObject.id === inventory.userId) {
                     return <article className="details">
+                        
                         <h2 className="gearName" >{inventory.manufacturer} {inventory.name}</h2>
                         <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
                         <header className="description">{inventory.description}</header>
                         <footer className="status">You have this item</footer>
+                        <button onClick={() => { navigate(`/editGearForm/${inventoryId}`) }} className="inventoryDetailsButton">Edit Item</button>
                     </article>
                 }
-                if (inventory.lentOut === false) {
-                    return <article>
+                if (inventory.id === parseInt(inventoryId) && inventory.lentOut === false && gearUserObject.id !== inventory.userId) {
+                    return <article className="details">
+                        <div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
+                            {feedback}
+                        </div>
+                        <h2 className="gearName" >{inventory.manufacturer} {inventory.name}</h2>
+                        <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
+                        <header className="description">{inventory.description}</header>
+                        <footer className="status">This item belongs to {inventory?.user?.fullName}</footer>
+                        <button onClick={(clickEvent) => sendBorrowRequest(clickEvent, inventory)} >Borrow</button>
+                        <button onClick={(clickEvent) => sendPurchaseRequest(clickEvent, inventory)} >Buy</button>
                     </article>
+                }
 
-                }
             })
         }
         {
@@ -118,13 +193,13 @@ export const InventoryDetails = () => {
                         <header className="description">{request.inventorys.description}</header>
                         <footer className="status">This item is being borrowed by {request?.user?.fullName}</footer>
                         <button onClick={(clickEvent) => { returnedItem(clickEvent, request) }} >Item returned</button>
+                        <button onClick={() => { navigate(`/editGearForm/${inventoryId}`) }} className="inventoryDetailsButton">Edit Item</button>
                     </article>
                 }
 
             })
         }
 
-        <button onClick={() => { navigate(`/editGearForm/${inventoryId}`) }} className="inventoryDetailsButton">Edit Item</button>
 
         <button onClick={() => { navigate(`/inventory`) }} className="inventoryDetailsButton">Back to Collection</button>
     </section>

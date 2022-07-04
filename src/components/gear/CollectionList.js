@@ -20,28 +20,30 @@ export const CollectionList = () => {
         <article>
             {
                 userInventory.map((inventory) => {
-                    return <section>
+                    return <>
                         <div className="collectionTitle">
                             <h2 className="title">{inventory.collectionName}</h2>
-                            <header>{inventory.fullName}'s gear</header>
-                            <header>{inventory.collectionDescription}</header>
+                            <header className="gearHeader">{inventory.fullName}'s gear</header>
+                            <header className="gearHeader">{inventory.collectionDescription}</header>
                         </div>
-                        {
-                            inventory.inventorys.map((inventory) => {
-                                return <Link to={`/gearDetails/${inventory.id}`}>
-                                    <section className="collections">
+                        <section className="collectionLists">
+                            {
+                                inventory.inventorys.map((inventory) => {
+                                    return <section className="collections"><Link to={`/gearDetails/${inventory.id}`}>
+
                                         <div className="collection">
                                             <img className="inventoryPic" src={inventory.photo} alt={inventory.description}></img>
                                             <footer>{inventory.manufacturer} {inventory.name}</footer>
                                         </div>
-                                    </section></Link>
+                                    </Link></section>
 
-                            })
-                        }
-                    </section>
+                                })
+                            }
+                        </section></>
                 })
             }
         </article>
+        <button onClick={() => { navigate(`/profile/${userId}`) }} className="backButton">View Profile</button>
         <button onClick={() => { navigate("/userCollections") }} className="backButton">Back to Collections</button>
     </>
 }

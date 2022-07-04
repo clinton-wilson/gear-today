@@ -28,7 +28,7 @@
     margin-top: 1em;
 }
 
-.mainTitle {
+/* .mainTitle {
     color: #003049;
     display: flex;
     font-size: 5em;
@@ -37,4 +37,13 @@
     text-align: center;
     margin-bottom: 1em;
     border-bottom: double .5em #003049;
+} */
+
+.titleRequest {
+    color: #003049;
+    text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+    border-bottom: double 1px #003049;
 }

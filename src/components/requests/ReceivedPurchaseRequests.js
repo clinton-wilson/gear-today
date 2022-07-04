@@ -102,52 +102,38 @@ export const ReceivedPurchaseRequests = () => {
 
     return <article className="requestsContainer">
         <div className="mainTitleRequest">
-        <h2>Received Purchase Requests</h2>
+            <h2>Received Purchase Requests</h2>
         </div>
-    {   
-        purchaseRequests.map((request) => {
-            const userMatch = users.find(({ id }) => id === request.buyerId)
-            if (gearUserObject.id === request.sellerId && request?.requestStatus === "pending") {
-                return <article className="requests">
-                    <section className="request">
-                    <div className="requestPics">
-                        <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
-                    </div>
-                    <footer className="requestHeader">{userMatch?.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
-                    <div className="requestButton">
-                    <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
-                    <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
-                </div>
-                </section>
-                </article>
-            }
-        }).reverse()
-    }
+        {
+            purchaseRequests.map((request) => {
+                const userMatch = users.find(({ id }) => id === request.buyerId)
+                if (gearUserObject.id === request.sellerId && request?.requestStatus === "pending") {
+                    return <section className="request">
+                        <div className="requestPics">
+                            <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                        </div>
+                        <footer className="requestHeader">{userMatch?.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
+                        <div className="requestButton">
+                            <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
+                            <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
+                        </div>
+                    </section>
+
+                }
+            }).reverse()
+        }
         {
             purchaseRequests.map((request) => {
                 const userMatch = users.find(({ id }) => id === request.buyerId)
                 if (gearUserObject.id === request.sellerId && request.requestStatus === "accepted" || request?.requestStatus === "denied")
                     return <section className="request">
                         <div className="requestPics">
-                            {/* <img className="requestPic" src={`${userMatch?.photo}`} alt={request?.user?.description}></img> */}
                             <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
                         </div>
                         <header className="requestHeader">You {request?.requestStatus} {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.dateResponded}</header></section>
-                
-                // if (gearUserObject.id === request.sellerId) {
-                //     return <section className="request">
-                //         <div className="requestPics">
-                //             {/* <img className="requestPic" src={`${userMatch?.photo}`} alt={request?.user?.description}></img> */}
-                //             <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
-                //         </div>
-                //         <footer className="requestHeader">{userMatch.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
-                //         <div className="requestButton">
-                //         <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
-                //         <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
-                //     </div>
-                //     </section>
-                // }
+
+
             })
         }
-        </article>
+    </article>
 }

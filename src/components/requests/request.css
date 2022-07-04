@@ -19,11 +19,21 @@
     flex-wrap: wrap;
 
 }
+.suggestions {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 
 .requestsContainer {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+}
+
+.borrowRequestsContainer {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .requestHeader {

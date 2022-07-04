@@ -28,9 +28,9 @@ useEffect(
 )
 
     return <>
-        <h2 className="titleReturns">Returned Gear</h2>
-
-
+      <div className="mainTitleRequest">
+        <h2>Returned Gear</h2>
+        </div>
     <article className="returns">
     {
         returnedGear.map((gear) => {
@@ -48,10 +48,10 @@ useEffect(
                     </section>
             }
             else {
-                return 
+                return
                 <header>There are no returns</header>
             }
-        })
+        }).reverse()
     }
     </article>
 </>
