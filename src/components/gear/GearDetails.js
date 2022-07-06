@@ -7,6 +7,18 @@ export const GearDetails = () => {
     const [inventories, setInventories] = useState([])
     const [requests, setRequests] = useState([])
     const [feedback, setFeedback] = useState("")
+    const [purchases, setPurchases] = useState([])
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/purchases?_expand=inventorys`)
+                .then(res => res.json())
+                .then((data) => {
+                    setPurchases(data)
+                })
+        },
+        []
+    )
 
     useEffect(() => {
         if (feedback !== "") {
@@ -62,6 +74,22 @@ export const GearDetails = () => {
                 setFeedback("Your request has been submitted!")
             })
 
+            .then(() => {
+                fetch(`http://localhost:8088/inventorys`)
+                    .then(res => res.json())
+                    .then((requestData) => {
+                        setInventories(requestData)
+                    })
+                    .then(() => {
+                        fetch(`http://localhost:8088/inventorys?_expand=user`)
+                            .then(res => res.json())
+                            .then((inventoryData) => {
+                                setRequests(inventoryData)
+                            })
+
+                    })
+            })
+
     }
 
     const sendBorrowRequest = (event, inventory) => {
@@ -86,6 +114,20 @@ export const GearDetails = () => {
             .then(() => {
                 setFeedback("Your request has been submitted!")
             })
+            .then(() => {
+                fetch(`http://localhost:8088/inventorys`)
+                    .then(res => res.json())
+                    .then((requestData) => {
+                        setInventories(requestData)
+                    })
+                    .then(() => {
+                        fetch(`http://localhost:8088/borrowRequests?_expand=inventorys`)
+                            .then(res => res.json())
+                            .then((inventoryData) => {
+                                setRequests(inventoryData)
+                            })
+                    })
+            })
 
     }
 
@@ -97,8 +139,9 @@ export const GearDetails = () => {
         </div>
         {
             reversedInventories.map((inventory) => {
+                const purchaseMatch = purchases.filter(({ inventorysId }) => inventorysId === inventory.id)
                 const requestMatch = requests?.find(({ inventorysId }) => inventorysId === inventory?.id)
-                console.log(requestMatch)
+                console.log(purchaseMatch)
                 if (inventory.id === parseInt(inventoryId)) {
                     if (inventory.lentOut) {
                         return <article className="details">
@@ -124,6 +167,17 @@ export const GearDetails = () => {
                             }} className="backButton">Back to Collection</button>
                         </article>
                     }
+                    // if (inventory.id === parseInt(inventoryId) && inventory.lentOut === false && gearUserObject.id !== inventory.userId && purchaseMatch?.inventorysId === inventory.id && purchaseMatch?.requestStatus === "pending") {
+                    //     return <article className="details">
+                    //         <div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
+                    //             {feedback}
+                    //         </div>
+                    //         <h2 className="gearName" >{inventory.manufacturer} {inventory.name}</h2>
+                    //         <img className="photoDetails" src={inventory.photo} alt={inventory.description}></img>
+                    //         <header className="description">{inventory.description}</header>
+                    //         <footer className="status">This item belongs to {inventory?.user?.fullName} and is currently unavailable.</footer>
+                    //     </article>
+                    // }
                     else {
                         return <article className="details">
                             <h2>{inventory.manufacturer} {inventory.name}</h2>

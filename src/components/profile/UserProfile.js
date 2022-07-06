@@ -15,16 +15,18 @@ export const UserProfile = () => {
         },
         [userId]
     )
-    return <article>
+    return <section className="profiles">
         <div className="picBG">
             <img className="profilePic" src={user.photo} alt="photo of the user"></img>
         </div>
-        <section className="profile">
-            <header className="profile__header">Name: {user.fullName}</header>
-            <footer className="profile__footer">Email: {user.email}</footer>
-            <footer className="profile__footer">Collection Name: {user.collectionName}</footer>
-            <footer className="profile__footer">Collection Description: {user.collectionDescription}</footer>
-        </section>
-        <button onClick={() => { navigate(`/userCollections/${userId}`) }} className="backButton">Back to Collection</button>
-    </article>
+        <article>
+            <section className="profile">
+                <header className="profile__header">Name: {user.fullName}</header>
+                <footer className="profile__footer">Email: {user.email}</footer>
+                <footer className="profile__footer">Collection Name: {user.collectionName}</footer>
+                <footer className="profile__footer">Collection Description: {user.collectionDescription}</footer>
+            </section>
+            <button onClick={() => { navigate(`/userCollections/${userId}`) }} className="backButton">Back to Collection</button>
+        </article>
+    </section>
 }

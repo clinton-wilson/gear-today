@@ -43,7 +43,9 @@ export const UserCollections = ({ searchTermState }) => {
     const newList = shuffle(foundUser)
 
     return <>
-        <h2 className="title" >User Collections</h2>
+        <div className="mainTitleRequest">
+            <h2>User Collections</h2>
+        </div>
         <article className="userCollections">
 
             {

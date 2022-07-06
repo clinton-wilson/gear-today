@@ -17,8 +17,10 @@ label {
     padding: 1em;
     margin: .5em;
     color: #003049;
-    text-align: center;
+    text-align: left;
     align-items: center;
+    border: double #fcbf49;
+    background-color: white;
 }
 .profiles {
     display: flex;
@@ -51,7 +53,7 @@ label {
 }
 .picBG {
     background-color: #fcbf49;
-    /* clip-path: circle(); */
+    clip-path: circle();
     width: fit-content;
     height: fit-content;
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { UserCollections } from "../gear/UserCollections"
 
 export const SubmittedBorrowRequests = () => {
     const [requestInventories, setRequestInventories] = useState([])
@@ -48,11 +47,11 @@ export const SubmittedBorrowRequests = () => {
 
     const requestArray = []
 
-    return <article className="requestsContainer">
+    return <article className="borrowRequestsContainer">
         {requestInventories.length > 0 ? requestInventories?.map((request) => {
             const inventoryMatch = userInventories?.find(({ id }) => id === request?.inventorysId)
             if (request?.userId === gearUserObject.id && request?.requestStatus === "pending") {
-                    {requestArray.push(request)}
+                { requestArray.push(request) }
                 return <section className="request">
                     <div className="requestPics">
                         <img className="inventoryPic" src={request?.inventorys?.photo}
@@ -62,39 +61,41 @@ export const SubmittedBorrowRequests = () => {
                 </section>
             }
             if (request?.userId === gearUserObject.id && request?.requestStatus === "accepted") {
-                {requestArray.push(request)}
-            return <section className="request">
-                <div className="requestPics">
-                    <img className="inventoryPic" src={request?.inventorys?.photo}
-                        alt={request?.inventorys?.description}></img>
-                </div>
-                <header className="requestHeader">You have been borrowing {`${inventoryMatch?.user?.fullName}`}'s {request?.inventorys?.manufacturer} {request?.inventorys?.name} since {request?.dateBorrowed}</header>
-            </section>
-        }
+                { requestArray.push(request) }
+                return <section className="request">
+                    <div className="requestPics">
+                        <img className="inventoryPic" src={request?.inventorys?.photo}
+                            alt={request?.inventorys?.description}></img>
+                    </div>
+                    <header className="requestHeader">You have been borrowing {`${inventoryMatch?.user?.fullName}`}'s {request?.inventorys?.manufacturer} {request?.inventorys?.name} since {request?.dateBorrowed}</header>
+                </section>
+            }
 
         }) : <h2>There are no pending requests...</h2>
         }
 
-        {requestArray.length === 0 ? (<><h3>There are no pending requests...</h3>
+        {requestArray.length === 0 ? (<section className="suggestions"><h3>There are no pending requests...</h3>
             <h3>Check out these collections we think you might like</h3>
-            
+
             <article className="userCollections">
 
                 {
                     newList.slice(0, 3).map((user) => {
                         if (user.id !== gearUserObject.id)
-                            return <><section className="userCollection"><div className="picDiv">
-                                <a href={`/userCollections/${user.id}`}><img className="profilePic" src={user.photo} alt="photo of the user"></img></a>
-                            </div><Link to={`/userCollections/${user.id}`}>
-                                    <h3 className="detailFooter" >{user.collectionName}</h3>
-                                    <footer className="detailFooter" >{user.collectionDescription}</footer>
-                                    <footer className="detailFooter" >{user.fullName}'s collection</footer>
+                            return <>
+                                <section className="userCollection"><div className="picDiv">
+                                    <a href={`/userCollections/${user.id}`}><img className="profilePic" src={user.photo} alt="photo of the user"></img></a>
+                                </div>
+                                    <Link to={`/userCollections/${user.id}`}>
+                                        <h3 className="detailFooter" >{user.collectionName}</h3>
+                                        <footer className="detailFooter" >{user.collectionDescription}</footer>
+                                        <footer className="detailFooter" >{user.fullName}'s collection</footer>
 
-                                </Link></section></>
+                                    </Link></section></>
                     })
                 }
             </article>
-            </>) : ""}
+        </section>) : ""}
 
 
 

@@ -228,7 +228,8 @@ export const ReceivedBorrowRequests = () => {
                         if (user.id !== gearUserObject.id)
                             return <><section className="userCollection"><div className="picDiv">
                                 <a href={`/userCollections/${user.id}`}><img className="profilePic" src={user.photo} alt="photo of the user"></img></a>
-                            </div><Link to={`/userCollections/${user.id}`}>
+                            </div>
+                                <Link to={`/userCollections/${user.id}`}>
                                     <h3 className="detailFooter" >{user.collectionName}</h3>
                                     <footer className="detailFooter" >{user.collectionDescription}</footer>
                                     <footer className="detailFooter" >{user.fullName}'s collection</footer>

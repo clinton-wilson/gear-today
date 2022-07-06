@@ -5,6 +5,7 @@
   padding: 10px;
   margin: 2em;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .inventoryPic {

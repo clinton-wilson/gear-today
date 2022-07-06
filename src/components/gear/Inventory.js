@@ -69,7 +69,9 @@ export const Inventory = ({ searchTermState }) => {
 
 
     return <>
-        <h2 className="titleInventory">Your Inventory</h2>
+        <div className="mainTitleRequest">
+            <h2>Your Inventory</h2>
+        </div>
 
         <article className="inventories">
             {

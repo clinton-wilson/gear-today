@@ -15,7 +15,8 @@ export const GearToday = () => {
             <Authorized>
                 <>
                     <header className="logo">GearToday
-                    <div className="track">Keep track of your gear today!</div>
+                    <div className="gone">...gone tomorrow!</div>
+                    {/* <div className="track">Keep track of your gear today!</div> */}
                     </header>
                     <header>
                         <NavBar />

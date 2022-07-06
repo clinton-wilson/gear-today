@@ -19,7 +19,9 @@ export const Profile = () => {
     )
 
     return <>
-        <h2 className="title">Your Profile</h2>
+        <div className="mainTitleRequest">
+            <h2>Your Profile</h2>
+        </div>
         <article className="profiles">
             {
                 users.map((user) => {

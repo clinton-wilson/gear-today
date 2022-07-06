@@ -23,17 +23,20 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-content: center;
 }
 
 .requestsContainer {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    text-align: center;
 }
 
 .borrowRequestsContainer {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
 }
 
 .requestHeader {
@@ -55,7 +58,7 @@
     flex-direction: column;
     padding: 1em;
     width: 15em;
-    height: 17em;
+    height: 20em;
     border: double #fcbf49;
     align-content: center;
     padding: 1em;

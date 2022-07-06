@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import "./request.css"
 
 export const ReceivedPurchaseRequests = () => {
@@ -64,6 +65,7 @@ export const ReceivedPurchaseRequests = () => {
                     body: JSON.stringify(inventoryToAPI)
                 })
                     .then(res => res.json())
+
             })
             .then(() => {
                 fetch(`http://localhost:8088/purchases?_expand=inventorys`)
@@ -100,40 +102,76 @@ export const ReceivedPurchaseRequests = () => {
             })
     }
 
-    return <article className="requestsContainer">
+    const shuffle = arr => [...arr].sort(() => Math.random() - 0.5)
+
+    const newList = shuffle(users)
+
+    const requestArray = []
+
+
+    return <>
         <div className="mainTitleRequest">
             <h2>Received Purchase Requests</h2>
         </div>
-        {
-            purchaseRequests.map((request) => {
-                const userMatch = users.find(({ id }) => id === request.buyerId)
-                if (gearUserObject.id === request.sellerId && request?.requestStatus === "pending") {
-                    return <section className="request">
-                        <div className="requestPics">
-                            <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
-                        </div>
-                        <footer className="requestHeader">{userMatch?.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
-                        <div className="requestButton">
-                            <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
-                            <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
-                        </div>
-                    </section>
+        <article className="borrowRequestsContainer">
+            {
+                purchaseRequests.map((request) => {
+                    const userMatch = users.find(({ id }) => id === request.buyerId)
 
-                }
-            }).reverse()
-        }
-        {
-            purchaseRequests.map((request) => {
-                const userMatch = users.find(({ id }) => id === request.buyerId)
-                if (gearUserObject.id === request.sellerId && request.requestStatus === "accepted" || request?.requestStatus === "denied")
-                    return <section className="request">
-                        <div className="requestPics">
-                            <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
-                        </div>
-                        <header className="requestHeader">You {request?.requestStatus} {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.dateResponded}</header></section>
+                    if (gearUserObject.id === request.sellerId && request?.requestStatus === "pending") {
+                        {
+                            { requestArray.push(request) }
+                            return <section className="request">
+                                <div className="requestPics">
+                                    <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                                </div>
+                                <footer className="requestHeader">{userMatch?.fullName} wants to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name}</footer>
+                                <div className="requestButton">
+                                    <button onClick={(clickEvent) => { acceptRequest(clickEvent, request) }} >Accept</button>
+                                    <button onClick={(clickEvent) => { denyRequest(clickEvent, request) }}>Deny</button>
+                                </div>
+                            </section>
+                        }
+
+                    }
+                }).reverse()
+            }
+            {
+                purchaseRequests.map((request) => {
+                    const userMatch = users.find(({ id }) => id === request.buyerId)
+
+                    if (gearUserObject.id === request.sellerId && request.requestStatus === "accepted" || request?.requestStatus === "denied") {
+                        { requestArray.push(request) }
+                        return <section className="request">
+                            <div className="requestPics">
+                                <img className="inventoryPic" src={request?.inventorys?.photo} alt={request?.inventorys?.description}></img>
+                            </div>
+                            <header className="requestHeader">You {request?.requestStatus} {`${userMatch?.fullName}`}'s request to buy your {request?.inventorys?.manufacturer} {request?.inventorys?.name} on {request.dateResponded}</header></section>
+                    }
 
 
-            })
-        }
-    </article>
+                }).reverse()
+            }
+            {requestArray.length === 0 ? (<section className="suggestions"><h3>There are no pending requests...</h3>
+                <h3>Check out these collections we think you might like</h3>
+
+                <article className="userCollections">
+
+                    {
+                        newList.slice(0, 3).map((user) => {
+                            if (user.id !== gearUserObject.id)
+                                return <><section className="userCollection"><div className="picDiv">
+                                    <a href={`/userCollections/${user.id}`}><img className="profilePic" src={user.photo} alt="photo of the user"></img></a>
+                                </div><Link to={`/userCollections/${user.id}`}>
+                                        <h3 className="detailFooter" >{user.collectionName}</h3>
+                                        <footer className="detailFooter" >{user.collectionDescription}</footer>
+                                        <footer className="detailFooter" >{user.fullName}'s collection</footer>
+
+                                    </Link></section></>
+                        })
+                    }
+                </article>
+            </section>) : ""}
+        </article>
+    </>
 }

@@ -57,6 +57,14 @@ h3 {
   font-size: 3em;
   text-shadow: .05em .05em #f77f00, .1em .1em #fcbf49;
 }
+
+.gone {
+  margin-left: 1em;
+  font-size: .25em;
+  text-shadow: none;
+  color: #f77f00;
+}
+
 .track {
   margin-left: 1em;
   font-size: .25em;
